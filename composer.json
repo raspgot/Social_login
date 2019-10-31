@@ -1,0 +1,14 @@
+{
+    "name": "raspgot/social_login",
+    "description": "Social login system",
+    "authors": [
+        {
+            "name": "gauthier witkowski",
+            "email": "gauthierw630@gmail.com"
+        }
+    ],
+    "require": {
+        "hybridauth/hybridauth" : "~3.0",
+        "symfony/var-dumper": "^4.3"
+    }
+}
