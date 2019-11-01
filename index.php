@@ -5,6 +5,26 @@
     use Hybridauth\Hybridauth;
     $hybridauth = new Hybridauth($config);
     $adapters = $hybridauth->getConnectedAdapters();
+    
+    if ($adapters) {
+        $db = new MysqliDb ('localhost', 'root', '', 'social');
+        foreach ($adapters as $name => $adapter) {
+            $userInfo = $adapter->getUserProfile();
+            dump($userInfo);
+            $data = Array (
+                'oauth_provider' => $name,
+                'oauth_uid'      => $userInfo->identifier,
+                'first_name'     => $userInfo->firstName,
+                'last_name'      => $userInfo->lastName,
+                'username'       => $userInfo->displayName,
+                'email'          => $userInfo->email,
+                'picture'        => $userInfo->photoURL,
+                'link'           => $userInfo->profileURL,
+                'created_at'     => $db->now(),
+            );
+        }
+        $id = $db->insert ('users', $data);
+    }
 
     $title = 'Social Login';
 ?>
